@@ -71,6 +71,54 @@ function showErrors(errors) {
   }
 }
 
+function isFieldInvalid(id) {
+  const value = document.getElementById(id).value.trim();
+
+  if (id === "fullName") {
+    return value === "" || value.length > maxNameLength;
+  }
+  if (id === "email") {
+    return isValidEmail(value) === false;
+  }
+  if (id === "phone") {
+    return isValidPhone(value) === false;
+  }
+  if (id === "password") {
+    return document.getElementById(id).value.length < minPasswordLength;
+  }
+  if (id === "confirmPassword") {
+    return value === "" || value !== document.getElementById("password").value;
+  }
+  if (id === "city") {
+    return value === "";
+  }
+  return false;
+}
+
+function addBlurCheck(id) {
+  const field = document.getElementById(id);
+
+  field.addEventListener("blur", function () {
+    if (isFieldInvalid(id) === true) {
+      field.classList.add("invalid");
+    } else {
+      field.classList.remove("invalid");
+    }
+  });
+}
+
+function updateNameCounter() {
+  const nameField = document.getElementById("fullName");
+  const counter = document.getElementById("nameCounter");
+  const left = maxNameLength - nameField.value.length;
+
+  if (left >= 0) {
+    counter.textContent = left + " characters left out of " + maxNameLength;
+  } else {
+    counter.textContent = "Too long by " + (0 - left) + " characters";
+  }
+}
+
 const registrationForm = document.getElementById("registrationForm");
 
 if (registrationForm !== null) {
@@ -78,6 +126,26 @@ if (registrationForm !== null) {
     event.preventDefault();
     const errors = getErrors();
     showErrors(errors);
+  });
+
+  addBlurCheck("fullName");
+  addBlurCheck("email");
+  addBlurCheck("phone");
+  addBlurCheck("password");
+  addBlurCheck("confirmPassword");
+  addBlurCheck("city");
+
+  document.getElementById("fullName").addEventListener("keyup", updateNameCounter);
+
+  document.getElementById("city").addEventListener("change", function () {
+    const cityMessage = document.getElementById("cityMessage");
+    const city = document.getElementById("city").value;
+
+    if (city === "") {
+      cityMessage.textContent = "";
+    } else {
+      cityMessage.textContent = "You chose " + city;
+    }
   });
 }
 

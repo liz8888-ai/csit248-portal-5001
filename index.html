@@ -1,30 +1,45 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
-</head>
-<body>
-
-    <header>
-        <h1>My Student Portal</h1>
-    </header>
-
-    <main>
-        <h2>Student Registration</h2>
-
         <form id="registrationForm" novalidate>
-            <!-- Form fields will be added later -->
+
+            <div class="field">
+                <label for="fullName">Full name</label>
+                <input type="text" id="fullName" name="fullName">
+                <span id="nameCounter"></span>
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="field">
+                <label for="phone">Phone (9 digits)</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <div class="field">
+                <label for="confirmPassword">Confirm password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+            </div>
+
+            <div class="field">
+                <label for="city">City</label>
+                <select id="city" name="city">
+                    <option value="">-- Choose a city --</option>
+                    <option value="Tashkent">Tashkent</option>
+                    <option value="Samarkand">Samarkand</option>
+                    <option value="Bukhara">Bukhara</option>
+                    <option value="Namangan">Namangan</option>
+                </select>
+            </div>
+
+            <p id="cityMessage"></p>
+
+            <button type="submit">Register</button>
         </form>
 
         <ul id="errorList"></ul>
-        <p id="cityMessage"></p>
-        <p id="nameCounter"></p>
-    </main>
-
-</body>
-</html>

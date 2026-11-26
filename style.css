@@ -1,3 +1,104 @@
-.invalid {
+:root {
+    --accent: aqua;
+    --dark: #054a4a;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4fbfb;
+    color: #222;
+  }
+  
+  header {
+    background-color: var(--accent);
+    padding: 15px 20px;
+    border-bottom: 3px solid var(--dark);
+  }
+  
+  header h1 {
+    margin: 0;
+    color: var(--dark);
+  }
+  
+  main {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+  
+  h2 {
+    color: var(--dark);
+  }
+  
+  .field {
+    margin-bottom: 12px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: var(--accent);
+    color: var(--dark);
+    border: 2px solid var(--dark);
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  #errorList {
+    color: red;
+  }
+  
+  #nameCounter,
+  #cityMessage {
+    font-size: 14px;
+    color: var(--dark);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+  }
+  
+  th,
+  td {
+    border: 1px solid #888;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: var(--accent);
+    color: var(--dark);
+  }
+  
+  .invalid {
     border: 2px solid red;
-}
+  }
+  
+  @media (max-width: 500px) {
+    main {
+      margin: 10px auto;
+    }
+  
+    th,
+    td {
+      padding: 5px;
+      font-size: 14px;
+    }
+  }

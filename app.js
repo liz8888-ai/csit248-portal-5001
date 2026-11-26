@@ -121,11 +121,18 @@ function updateNameCounter() {
 
 const registrationForm = document.getElementById("registrationForm");
 
-if (registrationForm !== null) {
-  registrationForm.addEventListener("submit", function (event) {
+registrationForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const errors = getErrors();
     showErrors(errors);
+
+    if (errors.length === 0) {
+      const ok = confirm("Register ?");
+      if (ok === true) {
+        const name = document.getElementById("fullName").value.trim();
+        window.location.href = "board.html?name=" + encodeURIComponent(name);
+      }
+    }
   });
 
   addBlurCheck("fullName");
@@ -147,6 +154,5 @@ if (registrationForm !== null) {
       cityMessage.textContent = "You chose " + city;
     }
   });
-}
 
 console.log("A85204925001");

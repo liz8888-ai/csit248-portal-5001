@@ -1,0 +1,7 @@
+[
+    { "name": "Dmitriy Volkov", "marks": 82, "city": "Samarkand" },
+    { "name": "Anna Petrova", "marks": 67, "city": "Bukhara" },
+    { "name": "Bobur Tursunov", "marks": 35, "city": "Namangan" },
+    { "name": "Liz Andersson", "marks": 78, "city": "Tashkent" },
+    { "name": "Laziza Anvarova", "marks": 24, "city": "Tashkent" }
+  ]

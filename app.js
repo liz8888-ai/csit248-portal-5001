@@ -119,9 +119,80 @@ function updateNameCounter() {
   }
 }
 
+let allStudents = [];
+
+function grade(marks) {
+  if (marks < 41) {
+    return "Fail";
+  }
+  if (marks < 75) {
+    return "Pass";
+  }
+  return "Distinction";
+}
+
+function showStudents(list) {
+  const tbody = document.getElementById("studentRows");
+  tbody.textContent = "";
+
+  for (let i = 0; i < list.length; i++) {
+    const row = document.createElement("tr");
+
+    const nameCell = document.createElement("td");
+    nameCell.textContent = list[i].name;
+    row.appendChild(nameCell);
+
+    const marksCell = document.createElement("td");
+    marksCell.textContent = list[i].marks;
+    row.appendChild(marksCell);
+
+    const cityCell = document.createElement("td");
+    cityCell.textContent = list[i].city;
+    row.appendChild(cityCell);
+
+    const gradeCell = document.createElement("td");
+    gradeCell.textContent = grade(list[i].marks);
+    row.appendChild(gradeCell);
+
+    tbody.appendChild(row);
+  }
+}
+
+function sortAndShow() {
+  const sortSelect = document.getElementById("sortSelect");
+  const copy = allStudents.slice();
+
+  if (sortSelect.value === "name") {
+    copy.sort(function (a, b) {
+      return a.name.localeCompare(b.name);
+    });
+  } else {
+    copy.sort(function (a, b) {
+      return b.marks - a.marks;
+    });
+  }
+
+  showStudents(copy);
+}
+
+async function loadStudents() {
+  const errorMessage = document.getElementById("errorMessage");
+  try {
+    const res = await fetch("students.json");
+    if (res.ok === false) {
+      throw new Error("Server answered " + res.status);
+    }
+    allStudents = await res.json();
+    sortAndShow();
+  } catch (error) {
+    errorMessage.textContent = "Could not load students: " + error.message;
+  }
+}
+
 const registrationForm = document.getElementById("registrationForm");
 
-registrationForm.addEventListener("submit", function (event) {
+if (registrationForm !== null) {
+  registrationForm.addEventListener("submit", function (event) {
     event.preventDefault();
     const errors = getErrors();
     showErrors(errors);
@@ -154,5 +225,30 @@ registrationForm.addEventListener("submit", function (event) {
       cityMessage.textContent = "You chose " + city;
     }
   });
+}
+
+const welcomeMessage = document.getElementById("welcomeMessage");
+
+if (welcomeMessage !== null) {
+  const params = new URLSearchParams(window.location.search);
+  const studentName = params.get("name");
+
+  if (studentName === null || studentName === "") {
+    welcomeMessage.textContent = "Welcome, guest";
+  } else {
+    welcomeMessage.textContent = "Welcome, " + studentName;
+  }
+
+  document.getElementById("loadTime").textContent =
+    "Page loaded at " + new Date().toLocaleTimeString();
+
+  document.getElementById("sortSelect").addEventListener("change", sortAndShow);
+
+  document.getElementById("backButton").addEventListener("click", function () {
+    history.back();
+  });
+
+  loadStudents();
+}
 
 console.log("A85204925001");
